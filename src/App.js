@@ -32,18 +32,19 @@ function App() {
     async function getAndSetBlockInfo() {
       setBlockInfo(await alchemy.core.getBlock(blockNumber));
     }
-    async function getInfoFromBlock() {
-      //setGasUsed(blockInfo.gasUsed);
+    async function getGas() {
+      setGasUsed(parseInt(blockInfo.gasUsed._hex));
+      console.log(gasUsed)
+    }
+    async function getTxs() {
       setTransactions(blockInfo.transactions);
     }
-    getBlockNumber().then(getAndSetBlockInfo()).then(getInfoFromBlock());
+    getBlockNumber().then(getAndSetBlockInfo()).then(getGas()).then(getTxs);
   });
 
-  
-
   return <div className="App">
-    <div id="blockTable">
-      <table>
+    <div id="tableDiv">
+      <table id="table">
         <tr colspan="2">
           <td>Block: {blockNumber}</td>
         </tr>

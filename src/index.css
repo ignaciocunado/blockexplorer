@@ -12,3 +12,19 @@ code {
     monospace;
 }
 
+#blockTable {
+  margin: auto;
+}
+
+#table{
+  min-width: 50%;
+  max-width: 50%;
+  border: solid;
+  border-color: black;
+}
+
+td {
+  border: solid;
+  border-color: black;
+  padding: 2px;
+}
