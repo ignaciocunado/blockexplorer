@@ -16,21 +16,52 @@ const settings = {
 // Alchemy SDK is an umbrella library with several different packages.
 //
 // You can read more about the packages here:
-//   https://docs.alchemy.com/reference/alchemy-sdk-api-surface-overview#api-surface
+// https://docs.alchemy.com/reference/alchemy-sdk-api-surface-overview#api-surface
 const alchemy = new Alchemy(settings);
 
 function App() {
   const [blockNumber, setBlockNumber] = useState();
+  const [blockInfo, setBlockInfo] = useState();
+  const [gasUsed, setGasUsed] = useState();
+  const [txs, setTransactions] = useState();
 
   useEffect(() => {
     async function getBlockNumber() {
       setBlockNumber(await alchemy.core.getBlockNumber());
     }
-
-    getBlockNumber();
+    async function getAndSetBlockInfo() {
+      setBlockInfo(await alchemy.core.getBlock(blockNumber));
+    }
+    async function getInfoFromBlock() {
+      //setGasUsed(blockInfo.gasUsed);
+      setTransactions(blockInfo.transactions);
+    }
+    getBlockNumber().then(getAndSetBlockInfo()).then(getInfoFromBlock());
   });
 
-  return <div className="App">Block Number: {blockNumber}</div>;
+  
+
+  return <div className="App">
+    <div id="blockTable">
+      <table>
+        <tr colspan="2">
+          <td>Block: {blockNumber}</td>
+        </tr>
+        <tr>
+          <td>Gas Used:</td>
+          <td>{gasUsed}</td>
+        </tr>
+        <tr>
+          <td>Transactions: </td>
+          <td>
+            <ol>
+            {txs}
+            </ol>
+          </td>
+        </tr>
+      </table>
+    </div>
+    </div>;
 }
 
 export default App;
