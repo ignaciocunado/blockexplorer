@@ -37,7 +37,9 @@ function App() {
       console.log(gasUsed)
     }
     async function getTxs() {
-      setTransactions(blockInfo.transactions);
+      setTransactions(blockInfo.transactions.map((tx) => {
+        "<li>" + tx + "</li>"
+      }));
     }
     getBlockNumber().then(getAndSetBlockInfo()).then(getGas()).then(getTxs);
   });
