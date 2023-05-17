@@ -21,7 +21,6 @@ const alchemy = new Alchemy(settings);
 
 function App() {
   const [blockNumber, setBlockNumber] = useState();
-  const [blockInfo, setBlockInfo] = useState();
   const [gasUsed, setGasUsed] = useState();
   const [txs, setTransactions] = useState();
 
@@ -30,17 +29,17 @@ function App() {
       setBlockNumber(await alchemy.core.getBlockNumber());
     }
     async function getAndSetBlockInfo() {
-      setBlockInfo(await alchemy.core.getBlock(blockNumber));
-    }
-    async function getGas() {
-      setGasUsed(parseInt(blockInfo.gasUsed._hex));
-      console.log(gasUsed)
-    }
-    async function getTxs() {
+      const blockInfo = await alchemy.core.getBlock(blockNumber);
+      setGasUsed(blockInfo.gasUsed._hex);
       setTransactions(blockInfo.transactions);
     }
-    getBlockNumber().then(getAndSetBlockInfo()).then(getGas()).then(getTxs);
-  });
+    async function getSpecificInfo() {
+      console.log(blockInfo)
+      setGasUsed(parseInt(blockInfo.gasUsed._hex));
+      setTransactions(blockInfo.transactions);
+    }
+    getBlockNumber().then(getAndSetBlockInfo()).then(getSpecificInfo());
+  },[]);
 
   return <div className="App">
     <div id="tableDiv">
@@ -56,7 +55,7 @@ function App() {
           <td>Transactions: </td>
           <td>
             <ol>
-            {txs}
+            {txs} 
             </ol>
           </td>
         </tr>
