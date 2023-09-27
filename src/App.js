@@ -45,6 +45,8 @@ function App() {
 
   console.log(blockNumber)
   console.log(block)
+  const transactionlist = block.transactions?.map((tx, i) => (<li key={"tx_" + i}>{tx.hash}</li>))
+  console.log(transactionlist)
 
   return (<div>
     <div id='header'>
@@ -55,14 +57,20 @@ function App() {
       <center><h2>Latest Block: {blockNumber}</h2></center>
       {
         block &&
-        <div id='blockInfo'>
-          <h3>Timestamp: {block.timestamp}</h3>
-          <h3>Hash: {block.hash}</h3>
+        <div id='blockData'>
+          <div id='blockNumbers'>
+            <h3>Timestamp: {block.timestamp}</h3>
+            <h3>Hash: {block.hash}</h3>
+            <h3>Gas Used: {block.gasUsed?.toString()}</h3>
+          </div>
+          <div id='transactionList'>
+            <center><h3>Transacion Hashes:</h3></center>
+            <ol>
+              {transactionlist}
+            </ol>
+          </div>
         </div>
       }
-      <ol>
-        {block.transactions?.map((tx, i) => {<li key={"tx_" + i}>{tx.hash}</li>})}
-      </ol>
     </div>
   </div> );
 }
