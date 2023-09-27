@@ -1,0 +1,28 @@
+.navBarText {
+    color: white;
+  }
+
+  #header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap:nowrap;
+    background: linear-gradient(90deg, #122149,transparent) #1e4162;
+    min-height: 9%;
+    transition: background-color 0.7s;
+    justify-content: space-around;
+    align-self: center;
+    align-items: center;
+    overflow: hidden;
+    top: 0;
+    min-width: 100%;
+    position: fixed;
+}
+
+#header:hover, #header:focus, footer:hover, footer:focus {
+    /* background-color: black; */
+    background-color: #122149;
+}
+
+#headerLogo {
+  max-width: 10%;
+}

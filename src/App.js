@@ -1,13 +1,15 @@
-import NavBar from "./NavBar";
-import BlockInfo from "./BlockInfo";
+import Home from './pages/Home';
+import Transactions from './pages/Transactions';
+import { Route, Routes } from 'react-router-dom';
+import './App.css';
 
 function App() {
-    return  (
-        <div>
-            <NavBar />
-            <BlockInfo />
-        </div>
-    )
+    return (
+    <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/tx/:txHash" element={<Transactions />} />
+    </Routes>
+      );
 }
 
 export default App;

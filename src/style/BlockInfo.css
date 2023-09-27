@@ -1,0 +1,15 @@
+#blockNumbers {
+    display: flex;
+    flex-direction: row;
+    flex-wrap:nowrap;
+    justify-content: space-between;
+    align-self: center;
+    align-items: center;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  
+  #transactionList {
+    max-width: 50%;
+    margin: auto;
+  }

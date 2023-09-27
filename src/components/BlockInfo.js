@@ -1,5 +1,6 @@
 import { Alchemy, Network } from 'alchemy-sdk';
 import { useEffect, useState } from 'react';
+import '../style/BlockInfo.css'
 
 const settings = {
   apiKey: process.env.REACT_APP_ALCHEMY_API_KEY,
@@ -61,4 +62,4 @@ function BlockInfo() {
     </div>);
 }
 
-export default BlockInfo
+export default BlockInfo;
