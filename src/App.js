@@ -20,48 +20,50 @@ const settings = {
 const alchemy = new Alchemy(settings);
 
 function App() {
-  const [blockNumber, setBlockNumber] = useState();
-  const [gasUsed, setGasUsed] = useState();
-  const [txs, setTransactions] = useState();
+  const [blockNumber, setBlockNumber] = useState(0);
+  const [block, setBlock] = useState({});
 
   useEffect(() => {
     async function getBlockNumber() {
-      setBlockNumber(await alchemy.core.getBlockNumber());
+      await alchemy.core.getBlockNumber().then(res => {
+        setBlockNumber(res);
+      })
     }
-    async function getAndSetBlockInfo() {
-      const blockInfo = await alchemy.core.getBlock(blockNumber);
-      setGasUsed(blockInfo.gasUsed._hex);
-      setTransactions(blockInfo.transactions);
-    }
-    async function getSpecificInfo() {
-      console.log(blockInfo)
-      setGasUsed(parseInt(blockInfo.gasUsed._hex));
-      setTransactions(blockInfo.transactions);
-    }
-    getBlockNumber().then(getAndSetBlockInfo()).then(getSpecificInfo());
-  },[]);
 
-  return <div className="App">
-    <div id="tableDiv">
-      <table id="table">
-        <tr colspan="2">
-          <td>Block: {blockNumber}</td>
-        </tr>
-        <tr>
-          <td>Gas Used:</td>
-          <td>{gasUsed}</td>
-        </tr>
-        <tr>
-          <td>Transactions: </td>
-          <td>
-            <ol>
-            {txs} 
-            </ol>
-          </td>
-        </tr>
-      </table>
+    getBlockNumber();
+  });
+
+  useEffect(() => {
+    async function getBlockWithTransactions() {
+      await alchemy.core.getBlockWithTransactions().then(res => {
+        setBlock(res);
+      })
+    }
+
+    getBlockWithTransactions();
+  }, [blockNumber]);
+
+  console.log(blockNumber)
+  console.log(block)
+
+  return (<div>
+    <div id='header'>
+      <img src='./logoTitle.png' id='headerLogo' alt='logo'></img>
+      <h3 id='title'>Ignacio's Block Explorer</h3>
     </div>
-    </div>;
+    <div id='currentBlock'>
+      <center><h2>Latest Block: {blockNumber}</h2></center>
+      {
+        block &&
+        <div id='blockInfo'>
+          <h3>Timestamp: {block.timestamp}</h3>
+          <h3>Hash: {block.hash}</h3>
+        </div>
+      }
+      <ol>
+        {block.transactions?.map((tx, i) => {<li key={"tx_" + i}>{tx.hash}</li>})}
+      </ol>
+    </div>
+  </div> );
 }
-
 export default App;

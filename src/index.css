@@ -16,15 +16,41 @@ code {
   margin: auto;
 }
 
-#table{
-  min-width: 50%;
-  max-width: 50%;
-  border: solid;
-  border-color: black;
+#header {
+    display: flex;
+    flex-direction: row;
+    flex-wrap:nowrap;
+    background: linear-gradient(90deg, #122149,transparent) #ffffff;
+    min-height: 9%;
+    transition: background-color 0.7s;
+    justify-content: space-between;
+    align-self: center;
+    align-items: center;
+    overflow: hidden;
+    top: 0;
+    min-width: 100%;
 }
 
-td {
-  border: solid;
-  border-color: black;
-  padding: 2px;
+#header:hover, #header:focus, footer:hover, footer:focus {
+    /* background-color: black; */
+    background-color: #122149;
+}
+
+#headerLogo {
+  max-width: 10%;
+}
+
+#title {
+  padding-right: 5%;
+}
+
+#blockInfo {
+  display: flex;
+  flex-direction: row;
+  flex-wrap:nowrap;
+  justify-content: space-between;
+  align-self: center;
+  align-items: center;
+  padding-left: 5%;
+  padding-right: 5%;
 }
