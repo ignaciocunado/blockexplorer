@@ -20,7 +20,7 @@ code {
     display: flex;
     flex-direction: row;
     flex-wrap:nowrap;
-    background: linear-gradient(90deg, #122149,transparent) #ffffff;
+    background: linear-gradient(90deg, #122149,transparent) #1e4162;
     min-height: 9%;
     transition: background-color 0.7s;
     justify-content: space-between;
@@ -42,6 +42,7 @@ code {
 
 #title {
   padding-right: 5%;
+  color: white;
 }
 
 #blockNumbers {
