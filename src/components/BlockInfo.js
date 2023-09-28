@@ -23,7 +23,7 @@ function BlockInfo() {
       }
   
       getBlockNumber();
-    });
+    },[]);
   
     useEffect(() => {
       async function getBlockWithTransactions() {
@@ -35,10 +35,8 @@ function BlockInfo() {
       getBlockWithTransactions();
     }, [blockNumber]);
   
-    console.log(blockNumber)
-    console.log(block)
     const transactionlist = block.transactions?.map((tx, i) => (<li key={"tx_" + i}>{tx.hash}</li>))
-    console.log(transactionlist)
+
 
     return (
     <div id='currentBlock'>
@@ -53,9 +51,11 @@ function BlockInfo() {
           </div>
           <div id='transactionList'>
             <center><h3>Transacion Hashes:</h3></center>
+            <center>
             <ol>
               {transactionlist}
             </ol>
+            </center>
           </div>
         </div>
       }

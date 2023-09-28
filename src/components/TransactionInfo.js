@@ -10,18 +10,28 @@ const settings = {
 
 const alchemy = new Alchemy(settings);
 
-function TransactionInfo() {
+function TransactionInfo(props) {
     const [transaction, setTransaction] = useState({});
+    const hash = props.txHash;
 
     useEffect(() => {
         async function getTransaction() {
-
+          await alchemy.core.getTransactionReceipt(hash).then(res => setTransaction(res));
         }
 
         getTransaction();
-    })
+    },[hash]);
 
-    return (<h1>Info</h1>);
+    return (
+      <div id='info'>
+        <center><h3>Hash: {transaction.transactionHash}</h3></center>
+        <ul>
+          <li>From: {transaction?.from}</li>
+          <li>To: {transaction?.to}</li>
+          <li>Gas Used: {transaction?.gasUsed?.toString()}</li>
+        </ul>
+      </div>
+    );
 }
 
 export default TransactionInfo;
